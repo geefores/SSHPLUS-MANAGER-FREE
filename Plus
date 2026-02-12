@@ -8,9 +8,8 @@ clear
     exit 0
 }
 
-# --- De-obfuscated Variables ---
-# Original: _lnk=$(echo 't1:e#n.5s0ul&p4hs$s.0729t9p$&8i&&9r7827c032:3s'| sed -e 's/[^a-z.]//ig'| rev)
-server_url="script.sshplus.net"
+# --- Paths ---
+# Removed server_url (script.sshplus.net)
 
 # Original: _Ink=$(echo '/3×u3#s87r/l32o4×c1a×l1/83×l24×i0b×'|sed -e 's/[^a-z/]//ig')
 lib_path="/usr/local/lib"
@@ -52,7 +51,6 @@ fun_bar () {
 
 # --- Verify Key/List Function ---
 function verif_key () {
-    # Note: 'krm' variable was defined but seemingly unused in the logic provided.
     chmod +x "$lib_path/list" > /dev/null 2>&1
     [[ ! -e "$lib_path/list" ]] && {
         echo -e "\n\033[1;31mINVALID FILE LIST!\033[0m"
@@ -105,11 +103,10 @@ echo ""
 
 # --- Confirmation ---
 read -p "$(echo -e "\033[1;36mDO YOU WISH TO CONTINUE \033[1;31m? \033[1;33m[Y/N]:\033[1;37m ")" -e -i s resp
-# Note: Checks for 'n' or 'N'.
 [[ $resp = @(n|N) ]] && rm $HOME/Plus && exit 0
 
-# Extract key parts (variables _lnk2 and _lnk1 were defined but logic depends on $key which wasn't clearly passed in snippet)
-# Assuming $key is defined in environment or passed earlier.
+# Link verification logic removed as it depended on external key validation
+# We maintain local key logic if passed, otherwise placeholders.
 _lnk2=$(echo "$key"|awk -F : '{print $2}')
 _lnk1=$(echo "$key"|awk -F : '{print $1}')
 
@@ -190,8 +187,10 @@ echo ""
 echo -e "      \033[1;33mCOMPLETING FUNCTIONS AND DEFINITIONS! \033[0m"
 echo ""
 
-# Execute the downloaded list file with decoded arguments
-fun_bar "$lib_path/list $server_url $lib_path $sys_lib_path $key"
+# Execute the downloaded list file
+# Replaced $server_url with 'localhost' to prevent connection to removed domain
+# while maintaining argument position for the binary.
+fun_bar "$lib_path/list localhost $lib_path $sys_lib_path $key"
 
 systemverify
 clear
